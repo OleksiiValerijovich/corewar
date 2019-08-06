@@ -5,9 +5,14 @@
 #ifndef COREWAR_VM_H
 #define COREWAR_VM_H
 
-# include "../libft/libft.h"
+# include "../../libft/libft.h"
 # include "op.h"
 # include "visualization.h"
+# include "exit_header.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdint.h>
+
 
 # define IND		2
 # define REG		1
@@ -20,18 +25,21 @@ typedef struct		s_flag
     int             dump;//мандаторі зупинка програми після н циклів
     int             s;//бонус пауза в NCURSES після певноЇ кількості циклів
     int             i;//інформація про гравців (в інформативному меню NCURSES)
+    int 			e;//error_manager mod activated
 }                   t_flag;
 
 
 typedef struct		s_bot
 {
-    int				id;
-    uint32_t		size_read;
-    uint32_t		size;
-    uint8_t			name[PROG_NAME_LENGTH];
-    uint8_t			comment[COMMENT_LENGTH];
-    uint8_t			*code;
-    uint8_t			*all_info;
+    int				num;//порядковий номер гравця
+    char 			*argv;//адреса файлу гравця для зчитування бінарника
+    uint8_t			bot_file[5000];// ввесь бінарних в 16-й системі числення
+    uint32_t		file_size;//зчитаний розмір файлу бота
+    uint32_t		*magic_header;//перевірка правильності розширення
+    uint8_t			name[PROG_NAME_LENGTH];//ім'я бота
+    uint32_t		size;// зчитане числове значення розміру команд
+    uint8_t			comment[COMMENT_LENGTH];//комент бота
+    uint8_t			*code;//команди бота
 }					t_bot;
 
 typedef struct		s_car
@@ -48,6 +56,17 @@ typedef struct		s_car
     struct s_car	*next;
     struct s_car	*back;
 }					t_car;
+
+typedef struct		s_op
+{
+    char			*name;
+    uint8_t			code;
+    uint8_t			num_arg;
+    uint8_t			is_args_types;
+    uint8_t			args_types[3];
+    uint8_t			dir_size;
+    int				wait;
+}					t_op;
 
 typedef struct		s_vm
 {
@@ -70,22 +89,14 @@ typedef struct		s_vm
     int				check_count;
     int				num_kar;
     int				num_bot;
-    t_bot			**bot;
+    t_bot			*bot[4];
     t_car			*car;
     t_visualization	*vis;
     t_flag          flag;
 }					t_vm;
 
-typedef struct		s_op
-{
-    char			*name;
-    uint8_t			code;
-    uint8_t			num_arg;
-    uint8_t			is_args_types;
-    uint8_t			args_types[3];
-    uint8_t			dir_size;
-    int				wait;
-}					t_op;
+t_vm                *vm;
+void				validation_bin_bot(void);
 
 
 

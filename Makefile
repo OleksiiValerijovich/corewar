@@ -1,47 +1,44 @@
 NAME	=	corewar
 
 SRC_F	=	main.c \
-			validation_argv.c \
 			validation_bin_bot.c
 
-SRC = $(addprefix ./src/, $(SRC_F))
+SRC = $(addprefix ./src/vm/, $(SRC_F))
 
 OBJ_F 	=	main.o \
-			validation_argv.o \
 			validation_bin_bot.o
 
 OBJ_DIR =	./obj/
 
 OBJ = $(addprefix ./obj/, $(OBJ_F))
 
-LIB = ./libft
-LIB_OBJ = ./libft/*.o
+LIB_DIR = ./libft
 
-HEADER = ./includes/corewar_vm.h
+HEADER = ./includes/vm/corewar_vm.h
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g -O3
 
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(HEADER)
-	 	@make -C $(LIB)
-		@gcc $(OBJ) $(LIB_OBJ) -o $(NAME) -O3 $(FLAGS)
+	 	#@make -C $(LIB_DIR)
+		@gcc $(OBJ) -o $(NAME) $(FLAGS) -L $(LIB_DIR) -lft
 
 $(OBJ_DIR):
 		@mkdir -p $(OBJ_DIR)
 
-$(addprefix ./obj/, %.o): $(addprefix ./src/, %.c)
-		@gcc -o $@ -c $< -O3 $(FLAGS)
+$(addprefix ./obj/, %.o): $(addprefix ./src/vm/, %.c)
+		@gcc -o $@ -c $< $(FLAGS)
 
 lib:
-	@make -C $(LIB) re
+	#@make -C $(LIB_DIR) re
 clean:
-	@make -C $(LIB) clean
+	#@make -C $(LIB_DIR) clean
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@make -C $(LIB) fclean
+	#@make -C $(LIB_DIR) fclean
 	@rm -f $(NAME)
 
 re: fclean all
