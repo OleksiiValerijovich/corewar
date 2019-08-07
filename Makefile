@@ -1,12 +1,20 @@
 NAME	=	corewar
 
 SRC_F	=	main.c \
-			validation_bin_bot.c
+			validation_argv1.c \
+			validation_argv2.c \
+			validation_bin_bot.c \
+			map_initialization.c \
+			car_creation.c
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
 
 OBJ_F 	=	main.o \
-			validation_bin_bot.o
+			validation_argv1.o \
+			validation_argv2.o \
+			validation_bin_bot.o \
+			map_initialization.o \
+			car_creation.o
 
 OBJ_DIR =	./obj/
 
@@ -21,7 +29,7 @@ FLAGS = -Wall -Wextra -Werror -g -O3
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(HEADER)
-	 	#@make -C $(LIB_DIR)
+	 	@make -C $(LIB_DIR)
 		@gcc $(OBJ) -o $(NAME) $(FLAGS) -L $(LIB_DIR) -lft
 
 $(OBJ_DIR):
@@ -31,14 +39,14 @@ $(addprefix ./obj/, %.o): $(addprefix ./src/vm/, %.c)
 		@gcc -o $@ -c $< $(FLAGS)
 
 lib:
-	#@make -C $(LIB_DIR) re
+	@make -C $(LIB_DIR) re
 clean:
-	#@make -C $(LIB_DIR) clean
+	@make -C $(LIB_DIR) clean
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	#@make -C $(LIB_DIR) fclean
+	@make -C $(LIB_DIR) fclean
 	@rm -f $(NAME)
 
 re: fclean all
