@@ -5,7 +5,9 @@ SRC_F	=	main.c \
 			validation_argv2.c \
 			validation_bin_bot.c \
 			map_initialization.c \
-			car_creation.c
+			op_functions_help.c \
+			war.c \
+			op_live.c \
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
 
@@ -14,7 +16,9 @@ OBJ_F 	=	main.o \
 			validation_argv2.o \
 			validation_bin_bot.o \
 			map_initialization.o \
-			car_creation.o
+			op_functions_help.o \
+			war.o \
+			op_live.c \
 
 OBJ_DIR =	./obj/
 

@@ -45,10 +45,12 @@ typedef struct		s_car
 	int				num;//the number of the car
 	uint32_t		bot_num;//the number of player
 	uint32_t		pos;//car position on the map
-	int				live;//if it is live
-	uint32_t		op_id;//operation ID (1/16)
-	int				carry;// carry status
-	uint32_t		cicles_to_wait;
+	int				last_live;//The number of the cycle in which the live operation was realized at last
+	uint32_t		op_id;//operation ID (1-16)
+	int				carry;// carry status (0/1)
+	int 			step;// кількість буйт які потрібно буде перейти щоб опинитись на наступній операції
+	int32_t			zjmp;//
+	uint32_t		cycles_to_wait;//кількість циклів до моменту виконання операції на якій перебуває каретка
 	uint32_t		reg[REG_NUMBER + 1];
 	struct s_car	*prev;
 	struct s_car	*next;
@@ -67,19 +69,19 @@ typedef struct		s_op
 
 typedef struct		s_vm
 {
-	int				nbr_cycles;
+	int				last_say_live;//гравець який останній скзав що живий
+	int				num_of_life_tot;//загальна кількість виконаних операцій життя
+	int				live_for_check;//кількість виконаних операцій життя змоменту останньої перевірки
+	int				cycles_total;//кількість циклів з початку гри
+	int				cycles_to_die;//довжина періоду до перевірки
+	int				cycles_to_die_prev;// необхідна для перерахунку cysles_to_die
+	int				cycles_after_check;//кількість циклів після перевірки (в межах cycles_to_die)
+	int				check_count;//кількість проведених перевірок  з моменту зміни значення cycles_to_die
 	int				fd[5];
-	uint8_t			map[MEM_SIZE];
-	uint8_t			inf_vis[MEM_SIZE];
-	int				last_say_live;
-	int				cycles_total;
-	int				cycles_after_check;
-	int				cycles_to_die;
-	int				cycles_to_die_prev;
-	int				num_of_life;
-	int				check_count;
-	int				num_car;
-	int				num_bot;
+	uint8_t			map[MEM_SIZE];//\/
+	uint8_t			map_color[MEM_SIZE];//\/
+	int				num_car;//\/
+	int				num_bot;//\/
 	t_bot			bot[4];
 	t_car			*car;
 	t_visualization	*vis;
@@ -94,7 +96,9 @@ void				check_flag_i(char **av, int *i);
 void				check_flags_b_v(char **av, int *i);
 void				validation_bin_bot(void);
 void				map_initialization(void);
-void				car_creation(int pos, int n_player);
+void				war(void);
+uint8_t				*get_arg_type(t_car *c);
+
 
 static t_op			g_op[17] =
 		{

@@ -53,7 +53,7 @@ static void	check_champions(char **av, int *i)
 		while (vm->bot[n].argv)
 			n++;
 		n == 4 || vm->num_bot > 3 ? error_exit(ft_printf(CHAMP_MAX)) : 0;
-		vm->bot[n].num = n;
+		vm->bot[n].num = n + 1;
 		vm->bot[n].argv = av[*i];
 		vm->num_bot += 1;
 	}
