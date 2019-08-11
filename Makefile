@@ -7,7 +7,13 @@ SRC_F	=	main.c \
 			map_initialization.c \
 			op_functions_help.c \
 			war.c \
+			finish.c \
 			op_live.c \
+			op_ld.c \
+			print_map.c \
+			op_st.c \
+			op_add.c \
+			op_sub.c \
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
 
@@ -18,7 +24,13 @@ OBJ_F 	=	main.o \
 			map_initialization.o \
 			op_functions_help.o \
 			war.o \
-			op_live.c \
+			op_live.o \
+			finish.o \
+			op_ld.o \
+			print_map.o \
+			op_st.o \
+			op_add.o \
+			op_sub.o \
 
 OBJ_DIR =	./obj/
 
@@ -33,7 +45,7 @@ FLAGS = -Wall -Wextra -Werror -g -O3
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ) $(HEADER)
-	 	@make -C $(LIB_DIR)
+	 	#@make -C $(LIB_DIR)
 		@gcc $(OBJ) -o $(NAME) $(FLAGS) -L $(LIB_DIR) -lft
 
 $(OBJ_DIR):
@@ -42,15 +54,15 @@ $(OBJ_DIR):
 $(addprefix ./obj/, %.o): $(addprefix ./src/vm/, %.c)
 		@gcc -o $@ -c $< $(FLAGS)
 
-lib:
-	@make -C $(LIB_DIR) re
+#lib:
+#	@make -C $(LIB_DIR) re
 clean:
-	@make -C $(LIB_DIR) clean
+#	@make -C $(LIB_DIR) clean
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@make -C $(LIB_DIR) fclean
+#	@make -C $(LIB_DIR) fclean
 	@rm -f $(NAME)
 
 re: fclean all

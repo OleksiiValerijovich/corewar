@@ -48,7 +48,7 @@ typedef struct		s_car
 	int				last_live;//The number of the cycle in which the live operation was realized at last
 	uint32_t		op_id;//operation ID (1-16)
 	int				carry;// carry status (0/1)
-	int 			step;// кількість буйт які потрібно буде перейти щоб опинитись на наступній операції
+	int 			step;// кількість байт які потрібно буде перейти щоб опинитись на наступній операції
 	int32_t			zjmp;//
 	uint32_t		cycles_to_wait;//кількість циклів до моменту виконання операції на якій перебуває каретка
 	uint32_t		reg[REG_NUMBER + 1];
@@ -77,7 +77,8 @@ typedef struct		s_vm
 	int				cycles_to_die_prev;// необхідна для перерахунку cysles_to_die
 	int				cycles_after_check;//кількість циклів після перевірки (в межах cycles_to_die)
 	int				check_count;//кількість проведених перевірок  з моменту зміни значення cycles_to_die
-	int				fd[5];
+//	int				fd[5];
+	uint8_t			arg_type[3];
 	uint8_t			map[MEM_SIZE];//\/
 	uint8_t			map_color[MEM_SIZE];//\/
 	int				num_car;//\/
@@ -88,7 +89,7 @@ typedef struct		s_vm
 	t_flag			*flag;
 }					t_vm;
 
-t_vm				*vm;
+t_vm				*g_vm;
 void				error_exit(int i);
 void				validation_argv(int ac, char **av);
 void				check_flag_dump_p(char **av, int *i);
@@ -97,7 +98,17 @@ void				check_flags_b_v(char **av, int *i);
 void				validation_bin_bot(void);
 void				map_initialization(void);
 void				war(void);
-uint8_t				*get_arg_type(t_car *c);
+void				get_arg_type(t_car *c);
+void	 			show_winner(void);
+void				finish(void);
+void				get_op(t_car *c);
+void				op_live(t_car *c);
+void				op_ld(t_car *c);
+void				op_st(t_car *c);
+void				print_map();
+void				step_for_not_valid_arg_types(t_car *c, int arg_num);
+void				op_sub(t_car *c);
+void				op_add(t_car *c);
 
 
 static t_op			g_op[17] =
