@@ -3,6 +3,17 @@
 //
 #include "../../includes/vm/corewar_vm.h"
 
+void	get_op(t_car *c)
+{
+	c->op_id = g_vm->map[c->pos];//передаємо значення карти на якому нараз перебуває каретка
+	if (c->op_id >= 0x01 && c->op_id <= 0x10)
+		c->cycles_to_wait = g_op[c->op_id].wait;
+	else if (c->op_id < 0x01 || c->op_id > 0x10)//або цикл перевірки з пошуком валідної операції???????????????????
+	{
+		c->pos = (c->pos + 1) % MEM_SIZE;
+	}
+}
+
 void	get_arg_type(t_car *c)
 {
 	ft_bzero(g_vm->arg_type, sizeof(uint8_t) * 3);
@@ -11,13 +22,27 @@ void	get_arg_type(t_car *c)
 	g_vm->arg_type[2] = g_vm->map[c->pos + 1 % MEM_SIZE] >> 2 & 0x03;
 }
 
-void	get_op(t_car *c)
+int 	get_arg(int type_code, int pos, int arg_size)
 {
-	c->op_id = g_vm->map[c->pos];//передаємо значення карти на якому нараз перебуває каретка
-	if (c->op_id >= 0x01 && c->op_id <= 0x10)
-		c->cycles_to_wait = g_op[c->op_id].wait;
-	else//або цикл перевірки з пошуком валідної операції???????????????????
-		c->pos = (c->pos + 1) % MEM_SIZE;
+	int arg;
+	int step;
+
+	arg = 0;
+	step = 0;
+	if (type_code == REG_CODE)
+		arg = (g_vm->map[pos % MEM_SIZE]);
+	else if (type_code == DIR_CODE)
+	{
+		while (arg_size > 0)
+			arg += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
+	}
+	else if (type_code == IND_CODE)
+	{
+		while (arg_size > 0)
+			arg += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
+		arg = (pos + (arg % IDX_MOD)) % MEM_SIZE;
+	}
+	return (arg);
 }
 
 void 			step_for_not_valid_arg_types(t_car *c, int arg_num)
@@ -35,4 +60,31 @@ void 			step_for_not_valid_arg_types(t_car *c, int arg_num)
 			step += 2;
 	}
 	c->pos =+ step + 2;
+}
+
+void		get_all_arg(int*arg, int num_arg, t_car *c)
+{
+	int step;
+	int a;
+
+	a = 0;
+	step = 2;
+	while (a < num_arg)
+	{
+		if (g_vm->arg_type[a] == REG_CODE)
+		{
+			arg[a] = get_arg(REG_CODE, c->pos + step, 0);
+			step += 1;
+		}
+		if (g_vm->arg_type[a] == DIR_CODE)
+		{
+			arg[a] = get_arg(DIR_CODE, c->pos + step, g_op[c->op_id].dir_size);
+			step += g_op[c->op_id].dir_size;
+		}
+		if (g_vm->arg_type[a] == IND_CODE)
+		{
+			arg[a] = get_arg(IND_CODE, c->pos + step, 2);
+			step += 2;
+		}
+	}
 }

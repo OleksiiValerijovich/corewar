@@ -14,6 +14,8 @@ SRC_F	=	main.c \
 			op_st.c \
 			op_add.c \
 			op_sub.c \
+			op_and.c \
+
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
 
@@ -31,6 +33,7 @@ OBJ_F 	=	main.o \
 			op_st.o \
 			op_add.o \
 			op_sub.o \
+			op_and.o \
 
 OBJ_DIR =	./obj/
 

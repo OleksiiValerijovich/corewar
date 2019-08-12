@@ -14,9 +14,11 @@ void 	print_map()
 	str = g_vm->map;
 	while (i < MEM_SIZE)
 	{
-
 		if (i % 64 == 0)
+		{
 			write(1, "\n", 1);
+			ft_printf("%#06x : ", i);
+		}
 		if (i % 1 == 0 && i % 64 != 0)
 			write(1, " ", 1);
 		if (!str[i])

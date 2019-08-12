@@ -8,7 +8,7 @@
 # include "../../libft/includes/libft.h"
 # include "../../libft/includes/ft_printf.h"
 # include "./corewar_error.h"
-# include "./corewar_visual.h"
+# include "./corewar_vz.h"
 # include "./op.h"
 # include <fcntl.h>
 # include <unistd.h>
@@ -85,7 +85,7 @@ typedef struct		s_vm
 	int				num_bot;//\/
 	t_bot			bot[4];
 	t_car			*car;
-	t_visualization	*vis;
+	t_visualization	*vz;
 	t_flag			*flag;
 }					t_vm;
 
@@ -109,6 +109,8 @@ void				print_map();
 void				step_for_not_valid_arg_types(t_car *c, int arg_num);
 void				op_sub(t_car *c);
 void				op_add(t_car *c);
+int 				get_arg(int type_code, int pos, int arg_size);
+void				get_all_arg(int*arg, int num_arg, t_car *c);
 
 
 static t_op			g_op[17] =

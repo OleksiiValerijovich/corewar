@@ -14,24 +14,20 @@
 
 void		op_add(t_car *c)
 {
-	int		arg_0;
-	int		arg_1;
-	int		arg_2;
+	int		arg[3];
 
-	arg_0 = 0;
-	arg_1 = 0;
-	arg_2 = 0;
+	ft_bzero(arg, sizeof(int) * 3);
 	get_arg_type(c);
 	if (g_vm->arg_type[0] == REG_CODE && g_vm->arg_type[1] == REG_CODE &&
 		g_vm->arg_type[2] == REG_CODE)
 	{
-		arg_0 = (g_vm->map[(c->pos + 2) % MEM_SIZE]);
-		arg_1 = (g_vm->map[(c->pos + 3) % MEM_SIZE]);
-		arg_2 = (g_vm->map[(c->pos + 4) % MEM_SIZE]);
-		if (arg_0 > 1 && arg_0 < 17 && arg_1 > 1 && arg_1 < 17 && arg_2 > 1 && arg_2 < 17)
+		arg[0] = get_arg(REG_CODE, c->pos + 2, 0);
+		arg[1] = get_arg(REG_CODE, c->pos + 3, 0);
+		arg[2] = get_arg(REG_CODE, c->pos + 4, 0);
+		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 && arg[2] > 1 && arg[2] < 17)
 		{
-			c->reg[arg_2] = c->reg[arg_0] + c->reg[arg_1];
-			c->carry = c->reg[arg_2] == 0 ? 1 : 0;
+			c->reg[arg[2]] = c->reg[arg[0]] + c->reg[arg[1]];
+			c->carry = c->reg[arg[2]] == 0 ? 1 : 0;
 		}
 		c->pos += 5;
 	}
