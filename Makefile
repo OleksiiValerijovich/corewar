@@ -15,6 +15,15 @@ SRC_F	=	main.c \
 			op_add.c \
 			op_sub.c \
 			op_and.c \
+			op_or.c \
+			op_xor.c \
+			op_zjmp.c \
+			op_ldi.c \
+			op_sti.c \
+			op_fork.c \
+			op_lld.c \
+			op_lldi.c \
+			op_lfork.c \
 
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
@@ -34,6 +43,15 @@ OBJ_F 	=	main.o \
 			op_add.o \
 			op_sub.o \
 			op_and.o \
+			op_or.o \
+			op_xor.o \
+			op_zjmp.o \
+			op_ldi.o \
+			op_sti.o \
+			op_fork.o \
+			op_lld.o \
+			op_lldi.o \
+			op_lfork.o \
 
 OBJ_DIR =	./obj/
 

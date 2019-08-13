@@ -1,10 +1,10 @@
 //
-// Created by Oleksii KHERSONIUK on 2019-08-12.
+// Created by Oleksii KHERSONIUK on 2019-08-13.
 //
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 		op_and(t_car *c)
+void 		op_or(t_car *c)
 {
 	int 	arg[3];
 	int		i;
@@ -19,8 +19,8 @@ void 		op_and(t_car *c)
 	{
 		get_all_arg(arg, 3, c);
 		if ((g_vm->arg_type[0] == REG_CODE && (arg[0] < 1 || arg[0] > 16)) ||
-		(g_vm->arg_type[1] == REG_CODE && (arg[1] < 1 || arg[1] > 16)) ||
-		(arg[2] < 1 || arg[2] > 16))
+			(g_vm->arg_type[1] == REG_CODE && (arg[1] < 1 || arg[1] > 16)) ||
+			(arg[2] < 1 || arg[2] > 16))
 			step_for_not_valid_arg_types(c, 3);
 		else
 		{
@@ -35,10 +35,10 @@ void 		op_and(t_car *c)
 						arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
 				}
 			}
-			c->reg[arg[2]] = arg[0] & arg[1];
+			c->reg[arg[2]] = arg[0] | arg[1];
 			c->carry = (c->reg[arg[2]] == 0) ? 1 : 0;
 		}
 	}
-//	else
+//			else
 		step_for_not_valid_arg_types(c, 3);
 }

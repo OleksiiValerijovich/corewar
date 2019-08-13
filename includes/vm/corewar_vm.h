@@ -48,8 +48,8 @@ typedef struct		s_car
 	int				last_live;//The number of the cycle in which the live operation was realized at last
 	uint32_t		op_id;//operation ID (1-16)
 	int				carry;// carry status (0/1)
-	int 			step;// кількість байт які потрібно буде перейти щоб опинитись на наступній операції
-	int32_t			zjmp;//
+//	int 			step;// кількість байт які потрібно буде перейти щоб опинитись на наступній операції
+//	int32_t			zjmp;//
 	uint32_t		cycles_to_wait;//кількість циклів до моменту виконання операції на якій перебуває каретка
 	uint32_t		reg[REG_NUMBER + 1];
 	struct s_car	*prev;
@@ -111,6 +111,16 @@ void				op_sub(t_car *c);
 void				op_add(t_car *c);
 int 				get_arg(int type_code, int pos, int arg_size);
 void				get_all_arg(int*arg, int num_arg, t_car *c);
+void 				op_and(t_car *c);
+void				op_or(t_car *c);
+void				op_xor(t_car *c);
+void				op_zjmp(t_car *c);
+void				op_ldi(t_car *c);
+void				op_sti(t_car *c);
+void				op_fork(t_car *c);
+void				op_lld(t_car *c);
+void				op_lldi(t_car *c);
+void				op_lfork(t_car *c);
 
 
 static t_op			g_op[17] =
