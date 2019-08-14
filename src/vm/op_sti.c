@@ -6,25 +6,27 @@
 
 void 		op_sti(t_car *c)
 {
-	int 	arg[3];
-	int		i;
-	int		arg_size;
-	int		pos;
+	int	arg[3];
+	int			i;
+	int			arg_size;
+	int			pos;
+//	ft_printf("position %d\n", c->pos);
 
 	arg_size = 4;
 	i = -1;
 	ft_bzero(arg, sizeof(int) * 3);
 	get_arg_type(c);
-	if ((g_vm->arg_type[0] == REG_CODE && g_vm->arg_type[1] && (g_vm->arg_type[2]
-	== REG_CODE || g_vm->arg_type[2] == DIR_CODE)
+	if (g_vm->arg_type[0] == REG_CODE && g_vm->arg_type[1] && (g_vm->arg_type[2]
+	== REG_CODE || g_vm->arg_type[2] == DIR_CODE))
 	{
 		get_all_arg(arg, 3, c);
-		if ((arg[0] < 1 || arg[0] > 16) || (g_vm->arg_type[1] == REG_CODE &&
-		(arg[1] < 1 || arg[1] > 16)) || (g_vm->arg_type[2] == REG_CODE &&
-		(arg[2] < 1 || arg[2] > 16)))
-			step_for_not_valid_arg_types(c, 3);
-		else
+//		arg[1] = get_arg(DIR_CODE, c->pos + 3, 2);
+//	write(1, "\nHELLO\n", 7);
+		if ((arg[0] > 0 && arg[0] < 17) && ((g_vm->arg_type[1] != REG_CODE || (g_vm->arg_type[1] == REG_CODE &&
+		(arg[1] > 0 && arg[1] < 17))) && (g_vm->arg_type[2] != REG_CODE ||
+		(g_vm->arg_type[2] == REG_CODE && (arg[2] > 0 && arg[2] < 17)))))
 		{
+//			ft_printf("arg_0 %d, arg[1] %d, arg[2] %d\n", (int)arg[0], arg[1], (int)arg[2]);
 			while (++i < 3)
 			{
 				if (g_vm->arg_type[i] == REG_CODE)
@@ -45,6 +47,6 @@ void 		op_sti(t_car *c)
 			}
 		}
 	}
-//			else
-		step_for_not_valid_arg_types(c, 3);
+	step_for_not_valid_arg_types(c, 3);
+//	ft_printf("position %d\n", c->pos);
 }

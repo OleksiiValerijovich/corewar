@@ -110,7 +110,7 @@ void				step_for_not_valid_arg_types(t_car *c, int arg_num);
 void				op_sub(t_car *c);
 void				op_add(t_car *c);
 int 				get_arg(int type_code, int pos, int arg_size);
-void				get_all_arg(int*arg, int num_arg, t_car *c);
+void				get_all_arg(int *arg, int num_arg, t_car *c);
 void 				op_and(t_car *c);
 void				op_or(t_car *c);
 void				op_xor(t_car *c);
@@ -121,6 +121,7 @@ void				op_fork(t_car *c);
 void				op_lld(t_car *c);
 void				op_lldi(t_car *c);
 void				op_lfork(t_car *c);
+void				op_aff(t_car *c);
 
 
 static t_op			g_op[17] =
@@ -279,6 +280,5 @@ static t_op			g_op[17] =
 						.wait = 2
 				}
 		};
-
 
 #endif

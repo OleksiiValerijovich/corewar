@@ -22,7 +22,7 @@ void	car_initialization(int pos, int n_player)
 
 	new = (t_car *)ft_memalloc(sizeof(t_car));
 		new->num = n_player;
-		new->bot_num = n_player;
+		new->bot_num = n_player + 1;
 		new->pos = pos;
 		new->reg[1] = 0 - (n_player + 1);
 		g_vm->num_car++;

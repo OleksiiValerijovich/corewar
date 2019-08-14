@@ -24,6 +24,7 @@ SRC_F	=	main.c \
 			op_lld.c \
 			op_lldi.c \
 			op_lfork.c \
+			op_aff.c \
 
 
 SRC = $(addprefix ./src/vm/, $(SRC_F))
@@ -52,6 +53,7 @@ OBJ_F 	=	main.o \
 			op_lld.o \
 			op_lldi.o \
 			op_lfork.o \
+			op_aff.o \
 
 OBJ_DIR =	./obj/
 
@@ -61,7 +63,7 @@ LIB_DIR = ./libft
 
 HEADER = ./includes/vm/corewar_vm.h
 
-FLAGS = -Wall -Wextra -Werror -g -O3
+FLAGS = -g -O3 #-Wall -Wextra -Werror
 
 all: $(NAME)
 

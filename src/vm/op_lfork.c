@@ -4,7 +4,7 @@
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 			op_fork(t_car *c)
+void 			op_lfork(t_car *c)
 {
 	int		arg;
 	t_car	*new;

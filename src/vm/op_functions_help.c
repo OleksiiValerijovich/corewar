@@ -7,10 +7,15 @@ void	get_op(t_car *c)
 {
 	c->op_id = g_vm->map[c->pos];//передаємо значення карти на якому нараз перебуває каретка
 	if (c->op_id >= 0x01 && c->op_id <= 0x10)
-		c->cycles_to_wait = g_op[c->op_id].wait;
+	{
+		c->cycles_to_wait = g_op[c->op_id].wait - 1;
+//		ft_printf("cycle_get_op%d on tot cycle %d\n", c->cycles_to_wait, g_vm->cycles_total);
+
+	}
 	else if (c->op_id < 0x01 || c->op_id > 0x10)//або цикл перевірки з пошуком валідної операції???????????????????
 	{
 		c->pos = (c->pos + 1) % MEM_SIZE;
+		get_op(c);
 	}
 }
 
@@ -59,10 +64,11 @@ void 			step_for_not_valid_arg_types(t_car *c, int arg_num)
 		if (g_vm->arg_type[arg_num] == IND_CODE)
 			step += 2;
 	}
-	c->pos =+ step + 2;
+//	ft_printf("step %d\n", step);
+	c->pos += step + 2;
 }
 
-void		get_all_arg(int*arg, int num_arg, t_car *c)
+void		get_all_arg(int *arg, int num_arg, t_car *c)
 {
 	int step;
 	int a;
@@ -80,11 +86,14 @@ void		get_all_arg(int*arg, int num_arg, t_car *c)
 		{
 			arg[a] = get_arg(DIR_CODE, c->pos + step, g_op[c->op_id].dir_size);
 			step += g_op[c->op_id].dir_size;
+			if (g_op[c->op_id].dir_size == 2)
+				arg[a] = (short)arg[a];
 		}
 		if (g_vm->arg_type[a] == IND_CODE)
 		{
 			arg[a] = get_arg(IND_CODE, c->pos + step, 2);
 			step += 2;
 		}
+		a++;
 	}
 }

@@ -4,7 +4,7 @@
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 		op_ldi(t_car *c)
+void 		op_lldi(t_car *c)
 {
 	int 	arg[3];
 	int		i;
@@ -15,14 +15,14 @@ void 		op_ldi(t_car *c)
 	i = -1;
 	ft_bzero(arg, sizeof(int) * 3);
 	get_arg_type(c);
-	if ((g_vm->arg_type[0] && (g_vm->arg_type[1] == REG_CODE || g_vm->arg_type[1]
-																== DIR_CODE) && g_vm->arg_type[2] == REG_CODE)
+	if (g_vm->arg_type[0] && (g_vm->arg_type[1] == REG_CODE || g_vm->arg_type[1]
+	== DIR_CODE) && g_vm->arg_type[2] == REG_CODE)
 	{
 		get_all_arg(arg, 3, c);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
-												(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
-																				  (g_vm->arg_type[1] == REG_CODE && (arg[1] > 0 || arg[1] < 17)))) &&
-			(arg[2] > 0 && arg[2] < 17))
+		(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
+		(g_vm->arg_type[1] == REG_CODE && (arg[1] > 0 || arg[1] < 17)))) &&
+		(arg[2] > 0 && arg[2] < 17))
 		{
 			while (++i < 2)
 			{

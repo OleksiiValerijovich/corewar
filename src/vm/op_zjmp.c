@@ -7,10 +7,12 @@
 void 			op_zjmp(t_car *c)
 {
 	int		arg;
+//	ft_printf("c->pos0%d\n", c->pos);
 
-	arg = (short)get_arg(DIR_CODE, c->pos + 1, g_op[c->op_id].dir_size)
+	arg = (short)get_arg(DIR_CODE, c->pos + 1, g_op[c->op_id].dir_size);
 	if (c->carry == 1)
 		c->pos = (c->pos + arg % IDX_MOD) % MEM_SIZE;
 	else
 		c->pos = (c->pos + 3) % MEM_SIZE;
+//	ft_printf("arg%d, c->pos%d\n", arg, c->pos);
 }

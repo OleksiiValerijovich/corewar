@@ -9,15 +9,19 @@ void 	print_map()
 	uint8_t *str;
 	int 	i;
 
-	printf("map:\n");
+//	printf("map:\n");
 	i = 0;
 	str = g_vm->map;
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)
 		{
-			write(1, "\n", 1);
-			ft_printf("%#06x : ", i);
+			if (i != 0)
+				write(1, " \n", 2);
+			if (i == 0)
+				ft_printf("0x0000 : ");
+			else
+				ft_printf("%#06x : ", i);
 		}
 		if (i % 1 == 0 && i % 64 != 0)
 			write(1, " ", 1);
@@ -32,5 +36,5 @@ void 	print_map()
 		}
 		i++;
 	}
-	write(1, "\n", 1);
+	write(1, " \n", 2);
 }

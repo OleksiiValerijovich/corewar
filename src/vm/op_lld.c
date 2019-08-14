@@ -15,7 +15,7 @@ void 	op_lld(t_car *c)
 	get_arg_type(c);
 	pos = c->pos + 2;
 	if (g_vm->arg_type[1] == REG_CODE && (g_vm->arg_type[0] == DIR_CODE ||
-										  g_vm->arg_type[0] == IND_CODE))
+	g_vm->arg_type[0] == IND_CODE))
 	{
 		get_all_arg(arg, 2, c);
 		if (arg[1] < 17 && arg[1] > 0)
@@ -32,10 +32,7 @@ void 	op_lld(t_car *c)
 					c->reg[arg[1]] += (g_vm->map[arg[0]++ % MEM_SIZE] << (8 * --arg_size));
 			}
 			c->carry = c->reg[arg[1]] == 0 ? 1 : 0;
-			c->pos = g_vm->arg_type[0] == DIR_CODE ? (c->pos + 7) % MEM_SIZE : (c->pos + 5) % MEM_SIZE;
 		}
-//		else
-//			step_for_not_valid_arg_types(c, 2);
 	}
 	step_for_not_valid_arg_types(c, 2);
 }
