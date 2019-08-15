@@ -10,7 +10,6 @@ void 		op_sti(t_car *c)
 	int			i;
 	int			arg_size;
 	int			pos;
-//	ft_printf("position %d\n", c->pos);
 
 	arg_size = 4;
 	i = -1;
@@ -26,7 +25,8 @@ void 		op_sti(t_car *c)
 		(arg[1] > 0 && arg[1] < 17))) && (g_vm->arg_type[2] != REG_CODE ||
 		(g_vm->arg_type[2] == REG_CODE && (arg[2] > 0 && arg[2] < 17)))))
 		{
-//			ft_printf("arg_0 %d, arg[1] %d, arg[2] %d\n", (int)arg[0], arg[1], (int)arg[2]);
+			f_printf(c, 3, arg);
+//			ft_printf("STI arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 			while (++i < 3)
 			{
 				if (g_vm->arg_type[i] == REG_CODE)

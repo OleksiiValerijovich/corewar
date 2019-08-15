@@ -122,6 +122,8 @@ void				op_lld(t_car *c);
 void				op_lldi(t_car *c);
 void				op_lfork(t_car *c);
 void				op_aff(t_car *c);
+void				car_position(t_car *c);
+void				f_printf(t_car *c, int n_arg, int *arg);
 
 
 static t_op			g_op[17] =

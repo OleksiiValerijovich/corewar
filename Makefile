@@ -63,7 +63,7 @@ LIB_DIR = ./libft
 
 HEADER = ./includes/vm/corewar_vm.h
 
-FLAGS = -g -O3 #-Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror -O3 -fsanitize=address
 
 all: $(NAME)
 

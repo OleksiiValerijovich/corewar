@@ -20,6 +20,8 @@ void 		op_ldi(t_car *c)
 	== DIR_CODE) && g_vm->arg_type[2] == REG_CODE)
 	{
 		get_all_arg(arg, 3, c);
+		f_printf(c, 3, arg);
+//		ft_printf("LDI arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
 		(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
 		(g_vm->arg_type[1] == REG_CODE && (arg[1] > 0 || arg[1] < 17)))) &&

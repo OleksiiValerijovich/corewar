@@ -6,15 +6,21 @@
 
 
 
-static void	car_position(t_car *c)
+void	car_position(t_car *c)
 {
 //	ft_printf("cycle #%d, car#%d, cycles to wait%d\n",g_vm->cycles_total, c->bot_num, c->cycles_to_wait);
-	if (c->op_id == 0 || c->op_id < 0x01 || c->op_id > 0x10)
-		get_op(c);
-	else if (c->cycles_to_wait <= 0)
-	{
+//	if (c->op_id < 0x01 || c->op_id > 0x10)
+//		get_op(c);
+//	else
+//	if (c->cycles_to_wait <= 0)
+//	{
 //		write(1, "HELLO car_position\n", 19);
-//		ft_printf("car#%d, c->op_id%d", c->bot_num, c->op_id);
+	if (c->op_id < 0x01 || c->op_id > 0x10)
+		get_op(c);
+	else
+	{
+		ft_printf("cycle_tot:%d, car:%d, c->op_id:%d, pos:%d\n",g_vm->cycles_total, c->num, c->op_id, c->pos);
+//ft_bzero(g_vm->arg_type, sizeof(int) * 3);
 		c->op_id == 1 ? op_live(c) : 0;
 		c->op_id == 2 ? op_ld(c) : 0;
 		c->op_id == 3 ? op_st(c) : 0;
@@ -31,8 +37,10 @@ static void	car_position(t_car *c)
 		c->op_id == 14 ? op_lldi(c) : 0;
 		c->op_id == 15 ? op_lfork(c) : 0;
 		c->op_id == 16 ? op_aff(c) : 0;
-		get_op(c);
+		c->op_id = 0;
 	}
+//		ft_printf("position %d\n", c->pos);
+//	}
 }
 
 static void 	kill_them_all(void)

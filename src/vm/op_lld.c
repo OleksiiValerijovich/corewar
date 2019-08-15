@@ -18,6 +18,9 @@ void 	op_lld(t_car *c)
 	g_vm->arg_type[0] == IND_CODE))
 	{
 		get_all_arg(arg, 2, c);
+		f_printf(c, 2, arg);
+
+//		ft_printf("LLD arg_0 %d, arg[1] %d\n", arg[0], arg[1]);
 		if (arg[1] < 17 && arg[1] > 0)
 		{
 			if (g_vm->arg_type[0] == DIR_CODE)

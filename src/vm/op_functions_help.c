@@ -5,17 +5,16 @@
 
 void	get_op(t_car *c)
 {
-	c->op_id = g_vm->map[c->pos];//передаємо значення карти на якому нараз перебуває каретка
-	if (c->op_id >= 0x01 && c->op_id <= 0x10)
+//	c->op_id = g_vm->map[c->pos];
+	while (c->op_id < 0x01 || c->op_id > 0x10)
 	{
-		c->cycles_to_wait = g_op[c->op_id].wait - 1;
-//		ft_printf("cycle_get_op%d on tot cycle %d\n", c->cycles_to_wait, g_vm->cycles_total);
-
-	}
-	else if (c->op_id < 0x01 || c->op_id > 0x10)//або цикл перевірки з пошуком валідної операції???????????????????
-	{
-		c->pos = (c->pos + 1) % MEM_SIZE;
-		get_op(c);
+		c->op_id = g_vm->map[c->pos % MEM_SIZE];
+		if (c->op_id >= 0x01 && c->op_id <= 0x10)
+		{
+			c->cycles_to_wait = g_op[c->op_id].wait - 1;
+			break ;
+		}
+		c->pos++;
 	}
 }
 
@@ -30,10 +29,10 @@ void	get_arg_type(t_car *c)
 int 	get_arg(int type_code, int pos, int arg_size)
 {
 	int arg;
-	int step;
+//	int step;
 
 	arg = 0;
-	step = 0;
+//	step = 0;
 	if (type_code == REG_CODE)
 		arg = (g_vm->map[pos % MEM_SIZE]);
 	else if (type_code == DIR_CODE)
@@ -57,6 +56,7 @@ void 			step_for_not_valid_arg_types(t_car *c, int arg_num)
 	step = 0;
 	while (--arg_num >= 0)
 	{
+//		ft_printf("arg_type %d, arg_num %d\n", g_vm->arg_type[arg_num], arg_num);
 		if (g_vm->arg_type[arg_num] == REG_CODE)
 			step += 1;
 		if (g_vm->arg_type[arg_num] == DIR_CODE)
@@ -96,4 +96,28 @@ void		get_all_arg(int *arg, int num_arg, t_car *c)
 		}
 		a++;
 	}
+}
+
+
+void f_printf(t_car *c, int n_arg, int *arg)
+{
+	int i;
+
+	i = -1;
+	ft_printf("P %4d | %s ", c->num, g_op[c->op_id].name);
+	while (++i < n_arg)
+	{
+		if (g_vm->arg_type[i] == REG_CODE)
+			ft_printf("r");
+		ft_printf("%d", arg[i]);
+		if (i + 1 != n_arg)
+			ft_printf(" ");
+	}
+	if (c->op_id == 12 || c->op_id == 15)
+		ft_printf(" (%d)", (arg[0] % IDX_MOD + c->pos) % MEM_SIZE);
+	else if (c->op_id == 9 )
+	{
+		c->carry == 1 ? ft_printf(" OK") : ft_printf(" FAILED");
+	}
+	ft_printf("\n");
 }

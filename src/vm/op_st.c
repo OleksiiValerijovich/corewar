@@ -16,6 +16,8 @@ void		op_st(t_car *c)
 	g_vm->arg_type[1] == IND_CODE))
 	{
 		get_all_arg(arg, 2, c);
+		f_printf(c, 2, arg);
+//		ft_printf("ST arg_0 %d, arg[1] %d\n", arg[0], arg[1]);
 		if (arg[0] > 0 && arg[0] < 17)
 		{
 			if (g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17)

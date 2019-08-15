@@ -6,10 +6,13 @@
 
 void		op_aff(t_car *c)
 {
-	int arg;
+	int arg[1];
 
-	arg = get_arg(REG_CODE, c->pos + 1, 0);
-	if (arg > 0 && arg < 17)
-		ft_printf("%c\n", c->reg[arg] % 256);
+	arg[0] = 0;
+	arg[0] = get_arg(REG_CODE, c->pos + 1, 0);
+	f_printf(c, 1, arg);
+//	ft_printf("AFF arg_0 %d\n", arg);
+//	if (arg[0] > 0 && arg < 17)
+//		ft_printf("%c\n", c->reg[arg[0]] % 256);
 	c->pos = (c->pos + 2) % MEM_SIZE;
 }
