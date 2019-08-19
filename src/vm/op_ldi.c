@@ -21,10 +21,9 @@ void 		op_ldi(t_car *c)
 	{
 		get_all_arg(arg, 3, c);
 		f_printf(c, 3, arg);
-//		ft_printf("LDI arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
-		(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
-		(g_vm->arg_type[1] == REG_CODE && (arg[1] > 0 || arg[1] < 17)))) &&
+		arg[0] > 0 && arg[0] < 17)) && (g_vm->arg_type[1] != REG_CODE ||
+		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&
 		(arg[2] > 0 && arg[2] < 17))
 		{
 			while (++i < 2)
@@ -34,15 +33,19 @@ void 		op_ldi(t_car *c)
 				else if (g_vm->arg_type[i] == IND_CODE)
 				{
 					pos = arg[i];
+					arg[i] = 0;
 					while (arg_size > 0)
 						arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
 				}
 			}
 			pos = (c->pos + (arg[0] + arg[1]) % IDX_MOD) % MEM_SIZE;
+			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+			arg[0], arg[1], arg[0] + arg[1], pos);
 			arg_size = 4;
+            c->reg[arg[2]] = 0;
 			while (arg_size > 0)
 				c->reg[arg[2]] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
-		}
+        }
 	}
 	step_for_not_valid_arg_types(c, 3);
 }

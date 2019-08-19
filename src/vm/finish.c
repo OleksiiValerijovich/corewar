@@ -3,17 +3,23 @@
 //
 #include "../../includes/vm/corewar_vm.h"
 
-void 	show_winner(void)
-{
-	print_map();
-//	ft_printf("I am a WINNER\n");
-//	ft_printf("the winner is %s\n", g_vm->bot[g_vm->last_say_live].name);
-	exit(777);
-}
+//void 	show_winner(void)
+//{
+//	print_map();
+////	ft_printf("I am a WINNER\n");
+////	ft_printf("the winner is %s\n", g_vm->bot[g_vm->last_say_live].name);
+//	exit(777);
+//}
 
 void	finish(void)
 {
-//	ft_printf("the winner is %s\n", g_vm->bot[g_vm->last_say_live].name);
-	ft_printf("FINISH\n");
+//    ft_printf("car_num %d\n", g_vm->num_car);
+    if (g_vm->num_car <= 0)
+        ft_printf("Contestant %d, \"%s\", has won !\n", g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name);
+    else
+    	print_map();
+
+
+//	ft_printf("FINISH\n");
 	exit(999);
 }

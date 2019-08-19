@@ -22,12 +22,7 @@ void		op_sub(t_car *c)
 	g_vm->arg_type[2] == REG_CODE)
 	{
 		get_all_arg(arg, 3, c);
-		//		arg[0] = get_arg(REG_CODE, c->pos + 2, 0);
-//		arg[1] = get_arg(REG_CODE, c->pos + 3, 0);
-//		arg[2] = get_arg(REG_CODE, c->pos + 4, 0);
-//		ft_printf("SUB arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 		f_printf(c, 3, arg);
-
 		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 && arg[2] > 1 && arg[2] < 17)
 		{
 			c->reg[arg[2]] = c->reg[arg[0]] - c->reg[arg[1]];

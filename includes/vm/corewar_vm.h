@@ -78,6 +78,7 @@ typedef struct		s_vm
 	int				cycles_after_check;//кількість циклів після перевірки (в межах cycles_to_die)
 	int				check_count;//кількість проведених перевірок  з моменту зміни значення cycles_to_die
 //	int				fd[5];
+int                 car_process;
 	uint8_t			arg_type[3];
 	uint8_t			map[MEM_SIZE];//\/
 	uint8_t			map_color[MEM_SIZE];//\/

@@ -19,10 +19,9 @@ void 		op_xor(t_car *c)
 	{
 		get_all_arg(arg, 3, c);
 		f_printf(c, 3, arg);
-//		ft_printf("XOR arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
 		(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
-		(g_vm->arg_type[1] == REG_CODE && (arg[1] > 0 || arg[1] < 17)))) &&
+		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&
 		(arg[2] > 0 && arg[2] < 17))
 		{
 			while (++i < 2)
@@ -32,6 +31,7 @@ void 		op_xor(t_car *c)
 				else if (g_vm->arg_type[i] == IND_CODE)
 				{
 					pos = arg[i];
+                    arg[i] = 0;
 					while (arg_size > 0)
 						arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
 				}

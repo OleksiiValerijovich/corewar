@@ -19,18 +19,18 @@ void 	op_lld(t_car *c)
 	{
 		get_all_arg(arg, 2, c);
 		f_printf(c, 2, arg);
-
-//		ft_printf("LLD arg_0 %d, arg[1] %d\n", arg[0], arg[1]);
 		if (arg[1] < 17 && arg[1] > 0)
 		{
 			if (g_vm->arg_type[0] == DIR_CODE)
 				c->reg[arg[1]] = arg[0];
 			else if (g_vm->arg_type[0] == IND_CODE)
 			{
+			    arg[0] = 0;
 				while (arg_size > 0)
 					arg[0] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
 				arg[0] = (c->pos + arg[0]) % MEM_SIZE;
 				arg_size = 4;
+                c->reg[arg[1]] = 0;
 				while (arg_size > 0)
 					c->reg[arg[1]] += (g_vm->map[arg[0]++ % MEM_SIZE] << (8 * --arg_size));
 			}

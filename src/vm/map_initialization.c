@@ -21,11 +21,12 @@ void	car_initialization(int pos, int n_player)
 	t_car	*new;
 
 	new = (t_car *)ft_memalloc(sizeof(t_car));
-		new->num = n_player + 1;
-		new->bot_num = n_player + 1;
-		new->pos = pos;
-		new->reg[1] = 0 - (n_player + 1);
-		g_vm->num_car++;
+	new->num = n_player + 1;
+	new->bot_num = n_player + 1;
+	new->pos = pos;
+	new->reg[1] = 0 - (n_player + 1);
+	g_vm->num_car++;
+	g_vm->car_process++;
 	if (!g_vm->car )
 		g_vm->car = new;
 	else

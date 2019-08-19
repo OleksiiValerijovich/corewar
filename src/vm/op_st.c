@@ -17,7 +17,6 @@ void		op_st(t_car *c)
 	{
 		get_all_arg(arg, 2, c);
 		f_printf(c, 2, arg);
-//		ft_printf("ST arg_0 %d, arg[1] %d\n", arg[0], arg[1]);
 		if (arg[0] > 0 && arg[0] < 17)
 		{
 			if (g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17)
@@ -25,8 +24,8 @@ void		op_st(t_car *c)
 			else if (g_vm->arg_type[1] == IND_CODE)
 				while (arg_size > 0)
 				{
-					g_vm->map_color[arg[1]] = c->bot_num;
-					g_vm->map[arg[1]++] = c->reg[arg[0]] >> (8 * --arg_size);
+					g_vm->map_color[arg[1] % MEM_SIZE] = c->bot_num;
+					g_vm->map[(arg[1]++) % MEM_SIZE] = c->reg[arg[0]] >> (8 * --arg_size);
 				}
 		}
 	}

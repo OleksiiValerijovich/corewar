@@ -24,15 +24,15 @@ void		op_add(t_car *c)
 		arg[0] = get_arg(REG_CODE, c->pos + 2, 0);
 		arg[1] = get_arg(REG_CODE, c->pos + 3, 0);
 		arg[2] = get_arg(REG_CODE, c->pos + 4, 0);
-//		ft_printf("ADD arg_0 %d, arg[1] %d, arg[2] %d\n", arg[0], arg[1], arg[2]);
 		f_printf(c, 3, arg);
-		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 && arg[2] > 1 && arg[2] < 17)
+		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 &&
+		arg[2] > 1 && arg[2] < 17)
 		{
 			c->reg[arg[2]] = c->reg[arg[0]] + c->reg[arg[1]];
 			c->carry = c->reg[arg[2]] == 0 ? 1 : 0;
 		}
-		c->pos += 5;
+//		c->pos += 5;
 	}
-	else
+//	else
 		step_for_not_valid_arg_types(c, 3);
 }

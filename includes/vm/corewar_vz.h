@@ -21,4 +21,6 @@ typedef struct		s_visualization
 	WINDOW			*menu;
 }					t_visualization;
 
+void end_exit(void);
+
 #endif
