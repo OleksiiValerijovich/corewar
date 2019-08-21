@@ -6,7 +6,7 @@
 
 static void	introducing(void)
 {
-	int 	i;
+	int		i;
 
 	i = -1;
 	ft_printf("Introducing contestants...\n");
@@ -16,7 +16,7 @@ static void	introducing(void)
 		g_vm->bot[i].comment);
 }
 
-void	car_initialization(int pos, int n_player)
+void		car_initialization(int pos, int n_player)
 {
 	t_car	*new;
 
@@ -27,7 +27,7 @@ void	car_initialization(int pos, int n_player)
 	new->reg[1] = 0 - (n_player + 1);
 	g_vm->num_car++;
 	g_vm->car_process++;
-	if (!g_vm->car )
+	if (!g_vm->car)
 		g_vm->car = new;
 	else
 	{
@@ -37,11 +37,11 @@ void	car_initialization(int pos, int n_player)
 	}
 }
 
-void 	map_initialization(void)
+void		map_initialization(void)
 {
 	int		i;
-	int 	j;
-	int 	m;
+	int		j;
+	int		m;
 
 	i = -1;
 	g_vm->cycles_to_die = CYCLE_TO_DIE;

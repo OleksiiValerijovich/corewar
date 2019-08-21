@@ -4,9 +4,9 @@
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 		op_and(t_car *c)
+void		op_and(t_car *c)
 {
-	int 	arg[3];
+	int		arg[3];
 	int		i;
 	int		arg_size;
 	int		pos;
@@ -18,12 +18,12 @@ void 		op_and(t_car *c)
 	if (g_vm->arg_type[0] && g_vm->arg_type[1] && g_vm->arg_type[2] == REG_CODE)
 	{
 		get_all_arg(arg, 3, c);
-		f_printf(c, 3, arg);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
 		arg[0] > 0 && arg[0] < 17)) && (g_vm->arg_type[1] != REG_CODE ||
 		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&
 		(arg[2] > 0 && arg[2] < 17))
 		{
+    		f_printf(c, 3, arg);
 			while (++i < 2)
 			{
 				if (g_vm->arg_type[i] == REG_CODE)

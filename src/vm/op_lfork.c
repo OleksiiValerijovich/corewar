@@ -13,7 +13,7 @@ void 			op_lfork(t_car *c)
 
 	ft_bzero(arg, sizeof(int) * 1);
 	ft_bzero(g_vm->arg_type, sizeof(uint8_t) * 3);
-	arg[0] = (short)get_arg(DIR_CODE, (c->pos + 1) % MEM_SIZE, g_op[c->op_id].dir_size);
+	arg[0] = (short)get_arg(c, DIR_CODE, (c->pos + 1) % MEM_SIZE, g_op[c->op_id].dir_size);
 	f_printf(c, 1, arg);
 //	ft_printf("HELLO");
 //	ft_printf("op_lfork    c->pos%d\n", (c->pos + arg[0]) % MEM_SIZE);

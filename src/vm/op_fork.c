@@ -4,16 +4,15 @@
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 			op_fork(t_car *c)
+void		op_fork(t_car *c)
 {
 	int		arg[1];
 	t_car	*new;
-	int 	reg_num;
-	int     ll;
+	int		reg_num;
 
 	ft_bzero(arg, sizeof(int) * 1);
 	ft_bzero(g_vm->arg_type, sizeof(uint8_t) * 3);
-	arg[0] = (short)get_arg(DIR_CODE, c->pos + 1, g_op[c->op_id].dir_size);
+	arg[0] = (short)get_arg(c, DIR_CODE, c->pos + 1, g_op[c->op_id].dir_size);
 	f_printf(c, 1, arg);
 	arg[0] = (arg[0] % IDX_MOD + c->pos) % MEM_SIZE;
 	reg_num = REG_NUMBER + 1;
@@ -24,8 +23,7 @@ void 			op_fork(t_car *c)
 	new->num = ++g_vm->car_process;
 	new->bot_num = c->bot_num;
 	new->pos = arg[0];
-	ll = c->last_live;
-	new->last_live  = ll;
+	new->last_live = c->last_live;
 	new->carry = c->carry;
 	while (--reg_num > 0)
 		new->reg[reg_num] = c->reg[reg_num];

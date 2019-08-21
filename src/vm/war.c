@@ -19,8 +19,8 @@ void	car_position(t_car *c)
 		get_op(c);
 	else
 	{
-//		 ft_printf("cycle_tot:%d, car:%d, c->op_id:%d, pos:%d\n",g_vm->cycles_total, c->num, c->op_id, c->pos);
-//ft_bzero(g_vm->arg_type, sizeof(int) * 3);
+//		  ft_printf("cycle_tot:%d, car:%d, c->op_id:%d, pos:%d\n",g_vm->cycles_total, c->num, c->op_id, c->pos);
+//ft_bzero(g_vm->arg_type, sizeofs(int) * 3);
 		c->op_id == 1 ? op_live(c) : 0;
 		c->op_id == 2 ? op_ld(c) : 0;
 		c->op_id == 3 ? op_st(c) : 0;
@@ -77,7 +77,7 @@ static void 	kill_them_all(void)
 
 static void	check(void)
 {
-//		 ft_printf("cycle_tot:%d, car:%d, c->op_id:%d, pos:%d\n",g_vm->cycles_total, c->num, c->op_id, c->pos);
+		 // ft_printf("cycle_tot:%d, car:%d, c->op_id:%d, pos:%d\n",g_vm->cycles_total, c->num, c->op_id, c->pos);
 	g_vm->cycles_after_check = 0;
 	kill_them_all();
 	if (g_vm->live_for_check >= NBR_LIVE)

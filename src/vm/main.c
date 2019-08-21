@@ -54,11 +54,8 @@ int			main(int argc, char **argv)
 	if (!(g_vm = (t_vm *)ft_memalloc(sizeof(t_vm))))
 		error_exit(ft_printf(MEMORY));
 	validation_argv(argc, argv);
-//	ft_printf("validation_argv - OK\n");
-    validation_bin_bot();
-//	ft_printf("validation_bin_bot - OK\n");
-    map_initialization();
-    war();
-	
+	validation_bin_bot();
+	map_initialization();
+	war();
 	return (0);
 }

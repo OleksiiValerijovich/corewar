@@ -11,7 +11,7 @@
 # include "./corewar_vz.h"
 # include "./op.h"
 # include <fcntl.h>
-# include <unistd.h>
+# include <unistd.h> 
 # include <stdint.h>
 
 # define IND		2
@@ -110,7 +110,7 @@ void				print_map();
 void				step_for_not_valid_arg_types(t_car *c, int arg_num);
 void				op_sub(t_car *c);
 void				op_add(t_car *c);
-int 				get_arg(int type_code, int pos, int arg_size);
+int 				get_arg(t_car *c, int type_code, int pos, int arg_size);
 void				get_all_arg(int *arg, int num_arg, t_car *c);
 void 				op_and(t_car *c);
 void				op_or(t_car *c);
