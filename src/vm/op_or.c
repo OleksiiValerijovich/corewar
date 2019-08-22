@@ -1,17 +1,44 @@
-//
-// Created by Oleksii KHERSONIUK on 2019-08-13.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_or.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okherson <okherson@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/22 10:38:20 by okherson          #+#    #+#             */
+/*   Updated: 2019/08/22 10:38:21 by okherson         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/vm/corewar_vm.h"
 
-void 		op_or(t_car *c)
+static void	op_or2(t_car *c, int *arg, int i)
 {
-	int 	arg[3];
-	int		i;
 	int		arg_size;
 	int		pos;
 
 	arg_size = 4;
+	while (++i < 2)
+	{
+		if (g_vm->arg_type[i] == REG_CODE)
+			arg[i] = c->reg[arg[i]];
+		else if (g_vm->arg_type[i] == IND_CODE)
+		{
+			pos = arg[i];
+			arg[i] = 0;
+			while (arg_size > 0)
+				arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
+		}
+	}
+	c->reg[arg[2]] = arg[0] | arg[1];
+	c->carry = (c->reg[arg[2]] == 0) ? 1 : 0;
+}
+
+void		op_or(t_car *c)
+{
+	int		arg[3];
+	int		i;
+
 	i = -1;
 	ft_bzero(arg, sizeof(int) * 3);
 	get_arg_type(c);
@@ -23,21 +50,9 @@ void 		op_or(t_car *c)
 		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&
 		(arg[2] > 0 && arg[2] < 17))
 		{
-    		f_printf(c, 3, arg);
-			while (++i < 2)
-			{
-				if (g_vm->arg_type[i] == REG_CODE)
-					arg[i] = c->reg[arg[i]];
-				else if (g_vm->arg_type[i] == IND_CODE)
-				{
-					pos = arg[i];
-                    arg[i] = 0;
-					while (arg_size > 0)
-						arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
-				}
-			}
-			c->reg[arg[2]] = arg[0] | arg[1];
-			c->carry = (c->reg[arg[2]] == 0) ? 1 : 0;
+			if (g_vm->flag->i == 4)
+				f_printf(c, 3, arg);
+			op_or2(c, arg, i);
 		}
 	}
 	step_for_not_valid_arg_types(c, 3);

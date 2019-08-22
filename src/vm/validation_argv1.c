@@ -22,9 +22,9 @@ static void	check_flag_n(char **av, int *i)
 	{
 		if (!(ft_strcmp(av[tmp_i], "-n")))
 		{
-			if ((!(av[tmp_i + 1]) || av[tmp_i + 1][0] == '-' ||
-			av[tmp_i + 1][0] == '0' || !(is_positive_int(av[tmp_i + 1])) ||
-			(n = ft_atoi(av[tmp_i += 1])) < 1 || n > 4 || g_vm->bot[n - 1].argv))
+			if ((!(av[tmp_i + 1]) || av[tmp_i + 1][0] == '-' || av[tmp_i + 1][0]
+			== '0' || !(is_positive_int(av[tmp_i + 1])) || (n =
+			ft_atoi(av[tmp_i += 1])) < 1 || n > 4 || g_vm->bot[n - 1].argv))
 				error_exit(ft_printf(FLG_N_INVAL));
 			if (!(av[tmp_i += 1]) ||
 			ft_strcmp(&(av[tmp_i][ft_strlen(av[tmp_i]) - 4]), ".cor"))

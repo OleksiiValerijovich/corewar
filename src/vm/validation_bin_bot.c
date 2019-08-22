@@ -12,19 +12,19 @@
 
 #include "../../includes/vm/corewar_vm.h"
 
-static void read_bot(int fd, int i)
+static void	read_bot(int fd, int i, int a)
 {
-	uint8_t 	*c;
-	int 		j;
-	int 		a;
+	uint8_t *c;
+	int		j;
 
 	a = 0;
 	j = 4;
-	if ((g_vm->bot[i].file_size = read(fd, g_vm->bot[i].bot_file, 2900)) > 2874 ||
-	g_vm->bot[i].file_size < 2192)
+	if ((g_vm->bot[i].file_size = read(fd, g_vm->bot[i].bot_file, 2900)) > 2874
+	|| g_vm->bot[i].file_size < 2192)
 		error_exit(ft_printf(INCORRECT_COR_FILE, g_vm->bot[i].argv));
 	c = g_vm->bot[i].bot_file;
-	g_vm->bot[i].magic_header = ((c[0] << 24) + (c[1] << 16) + (c[2] << 8) + c[3]);
+	g_vm->bot[i].magic_header = ((c[0] << 24) + (c[1] << 16) + (c[2] << 8)
+	+ c[3]);
 	if (g_vm->bot[i].magic_header != COREWAR_EXEC_MAGIC)
 		error_exit(ft_printf(WRONG_MAGIC_HEADER));
 	while (j < 132)
@@ -43,9 +43,11 @@ static void read_bot(int fd, int i)
 
 void		validation_bin_bot(void)
 {
-	int 	i;
+	int		i;
+	int		a;
 
+	a = 0;
 	i = -1;
 	while (++i < g_vm->num_bot)
-		read_bot(open(g_vm->bot[i].argv, O_RDONLY), i);
+		read_bot(open(g_vm->bot[i].argv, O_RDONLY), i, a);
 }

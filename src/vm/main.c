@@ -57,5 +57,6 @@ int			main(int argc, char **argv)
 	validation_bin_bot();
 	map_initialization();
 	war();
+	if (g_vm)
 	return (0);
 }
