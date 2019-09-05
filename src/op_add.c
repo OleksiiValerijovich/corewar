@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aturuk <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/11 11:37:53 by aturuk            #+#    #+#             */
-/*   Updated: 2019/08/11 11:37:55 by aturuk           ###   ########.fr       */
+/*   Created: 2019/08/22 10:28:40 by aturuk            #+#    #+#             */
+/*   Updated: 2019/08/22 10:28:41 by aturuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 void		op_add(t_car *c)
 {
@@ -27,7 +27,7 @@ void		op_add(t_car *c)
 		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 &&
 		arg[2] > 1 && arg[2] < 17)
 		{
-    		f_printf(c, 3, arg);
+			g_vm->flag->i == 4 && g_vm->flag->v == 0 ? f_printf(c, 3, arg) : 0;
 			c->reg[arg[2]] = c->reg[arg[0]] + c->reg[arg[1]];
 			c->carry = c->reg[arg[2]] == 0 ? 1 : 0;
 		}

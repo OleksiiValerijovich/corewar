@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 static void	print_map2(int i)
 {
@@ -31,9 +31,9 @@ void		print_map(void)
 	str = g_vm->map;
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
+		if (i % (g_vm->flag->m ? 64 : 32) == 0)
 			print_map2(i);
-		if (i % 1 == 0 && i % 64 != 0)
+		if (i % 1 == 0 && i % (g_vm->flag->m ? 64 : 32) != 0)
 			write(1, " ", 1);
 		if (!str[i])
 			write(1, "00 ", 2);

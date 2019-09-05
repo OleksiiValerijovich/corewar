@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 static void	check_flag_n(char **av, int *i)
 {
@@ -63,12 +63,6 @@ static void	check_position(void)
 {
 	int		i;
 
-	if (g_vm->flag->v && g_vm->flag->b)
-		error_exit(ft_printf(FLG_V_AND_B));
-	if (g_vm->flag->p && !(g_vm->flag->v))
-		error_exit(ft_printf(FLG_V_AND_P));
-	if (g_vm->flag->dump && g_vm->flag->p)
-		error_exit(ft_printf(FLG_DUMP_AND_P));
 	if (!(g_vm->num_bot))
 		error_exit(ft_printf(CHAMP_INVAL));
 	i = 0;
@@ -76,6 +70,12 @@ static void	check_position(void)
 		i++;
 	if (i < g_vm->num_bot)
 		error_exit(ft_printf(CHAMP_INVAL));
+	if (g_vm->flag->v && (g_vm->flag->a || g_vm->flag->dump || g_vm->flag->m ||
+		g_vm->flag->l || g_vm->flag->i != -1))
+		error_exit(ft_printf(FLG_V_AND_OTHER, FLG_V_AND_OTHER2));
+	if (g_vm->flag->p && (!(g_vm->flag->v) || g_vm->flag->dump))
+		g_vm->flag->dump ? error_exit(ft_printf(FLG_DUMP_AND_P)) :
+		error_exit(ft_printf(FLG_V_AND_P));
 }
 
 void		validation_argv(int ac, char **av)
@@ -90,10 +90,11 @@ void		validation_argv(int ac, char **av)
 	{
 		if (!(ft_strcmp(av[i], "-dump")) || !(ft_strcmp(av[i], "-p")))
 			check_flag_dump_p(av, &i);
-		else if (!(ft_strcmp(av[i], "-i")))
-			check_flag_i(av, &i);
-		else if (!(ft_strcmp(av[i], "-b")) || !(ft_strcmp(av[i], "-v")))
-			check_flags_b_v(av, &i);
+		else if (!(ft_strcmp(av[i], "-i")) || !(ft_strcmp(av[i], "-l")))
+			check_flag_i_l(av, &i);
+		else if (!(ft_strcmp(av[i], "-v")) || !(ft_strcmp(av[i], "-a")) ||
+			!(ft_strcmp(av[i], "-lld_size")) || !(ft_strcmp(av[i], "-m")))
+			check_flags_v_a_lld_m(av, &i);
 		else if (ft_strstr(av[i], ".cor") || !(ft_strcmp(av[i], "-n")))
 			check_champions(av, &i);
 		else

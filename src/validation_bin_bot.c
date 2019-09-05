@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 static void	read_bot(int fd, int i, int a)
 {
@@ -49,5 +49,9 @@ void		validation_bin_bot(void)
 	a = 0;
 	i = -1;
 	while (++i < g_vm->num_bot)
+	{
 		read_bot(open(g_vm->bot[i].argv, O_RDONLY), i, a);
+		if (g_vm->bot[i].size_exec_code >=CHAMP_MAX_SIZE)
+			error_exit(ft_printf(TOO_LARGE_BOT_FILE));
+	}
 }

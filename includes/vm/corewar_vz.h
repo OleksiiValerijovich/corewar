@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar_visual.h                                   :+:      :+:    :+:   */
+/*   corewar_vz.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aturuk <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,17 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_VISUAL_H
-# define COREWAR_VISUAL_H
+#ifndef COREWAR_VZ_H
+# define COREWAR_VZ_H
 
 # include <ncurses.h>
+//# include "corewar_vm.h"
+
 
 typedef struct		s_visualization
 {
 	WINDOW			*map;
 	WINDOW			*menu;
+	int 			speed;
+	int 			keycode;
+//	int 			change_speed;
 }					t_visualization;
 
-void end_exit(void);
+void				end_exit(void);
+void				main_vz(void);
+void				init_vz(void);
+void				init_color_pairs(void);
 
 #endif

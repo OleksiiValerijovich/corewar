@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_initialization.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okherson <okherson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aturuk <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 10:36:18 by okherson          #+#    #+#             */
-/*   Updated: 2019/08/22 10:36:21 by okherson         ###   ########.fr       */
+/*   Created: 2019/08/23 09:50:48 by aturuk            #+#    #+#             */
+/*   Updated: 2019/08/23 09:50:49 by aturuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 static void	introducing(void)
 {
 	int		i;
 
 	i = -1;
+
 	ft_printf("Introducing contestants...\n");
 	while (++i < g_vm->num_bot)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
@@ -57,7 +58,7 @@ void		map_initialization(void)
 	while (++i < g_vm->num_bot)
 	{
 		j = 2192;
-		m = (4096 / g_vm->num_bot * i);
+		m = (MEM_SIZE / g_vm->num_bot * i);
 		car_initialization(m, i);
 		while (j < (int)g_vm->bot[i].file_size)
 		{
@@ -65,7 +66,25 @@ void		map_initialization(void)
 			g_vm->map[m++] = g_vm->bot[i].bot_file[j++];
 		}
 	}
-	introducing();
+	(g_vm->flag->i != 0 && g_vm->flag->v == 0) ? introducing() : 0;
 	g_vm->last_say_live = g_vm->num_bot;
 	g_vm->cycles_to_die = CYCLE_TO_DIE;
+}
+
+void	init_vz(void) //g_vm - global structure
+{
+	g_vm->vz = (t_visualization *)ft_memalloc(sizeof(t_visualization));
+	initscr();
+	curs_set(0);
+	g_vm->vz->map=newwin(64, 196, 0, 0);
+	g_vm->vz->menu=newwin(64, 84, 0, 196);
+	g_vm->vz->speed = 50;
+	init_color_pairs();//инициализация цветовых пар 1 - синий на черном, 5 - черный на
+	//синем(для каретки)
+	mvwprintw(g_vm->vz->menu, 30, 5, "HOT KEYS : ");
+	mvwprintw(g_vm->vz->menu, 31, 5, "Press any key to run 1 cycle except following");
+	mvwprintw(g_vm->vz->menu, 32, 5, "Press '+' to make faster speed");
+	mvwprintw(g_vm->vz->menu, 33, 5, "Press '-' to make slowly speed");
+	mvwprintw(g_vm->vz->menu, 34, 5, "Press ESC to exit");
+	mvwprintw(g_vm->vz->menu, 35, 5, "Press SPACE to continue fight");
 }

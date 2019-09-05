@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 void		op_st2(t_car *c, int *arg, int arg_size, int pos)
 {
@@ -50,7 +50,7 @@ void		op_st(t_car *c)
 		if (arg[0] > 0 && arg[0] < 17)
 		{
 			op_st2(c, arg, arg_size, pos);
-			if (g_vm->flag->i == 4)
+			if (g_vm->flag->i == 4 && g_vm->flag->v == 0)
 				f_printf(c, 2, arg);
 		}
 	}

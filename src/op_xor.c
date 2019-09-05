@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 static void	op_xor2(t_car *c, int *arg)
 {
@@ -51,7 +51,7 @@ void		op_xor(t_car *c)
 		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&
 		(arg[2] > 0 && arg[2] < 17))
 		{
-			if (g_vm->flag->i == 4)
+			if (g_vm->flag->i == 4 && g_vm->flag->v == 0)
 				f_printf(c, 3, arg);
 			op_xor2(c, arg);
 		}

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
 void		car_position(t_car *c)
 {
@@ -48,8 +48,9 @@ static void	kill_them_all(void)
 	{
 		if ((g_vm->cycles_total - c->last_live) >= g_vm->cycles_to_die)
 		{
-			g_vm->flag->i == 3 ? ft_printf("Process %d hasn't lived for %d cycles"
-			"(CTD %d)\n", c->num, g_vm->cycles_total - c->last_live,
+			g_vm->flag->i == 3 && g_vm->flag->v == 0 ?
+			ft_printf("Process %d hasn't lived for %d "
+			"cycles (CTD %d)\n", c->num, g_vm->cycles_total - c->last_live,
 			g_vm->cycles_to_die) : 0;
 			if (c->prev == NULL)
 				g_vm->car = c->next;
@@ -63,8 +64,7 @@ static void	kill_them_all(void)
 		else
 			c = c->next;
 	}
-	if (g_vm->num_car == 0)
-		finish();
+	g_vm->num_car == 0 ? finish() : 0;
 }
 
 static void	check(void)
@@ -94,6 +94,8 @@ void		war(void)
 	while (g_vm->num_car > 0)
 	{
 		g_vm->cycles_total++;
+		if (g_vm->flag->i == 1 && g_vm->flag->v == 0)
+			ft_printf("It is now cycle %d\n", g_vm->cycles_total);
 		c = g_vm->car;
 		while (c)
 		{
@@ -106,6 +108,7 @@ void		war(void)
 			check();
 		if (g_vm->flag->dump > 0 && g_vm->cycles_total == g_vm->flag->dump)
 			finish();
+		g_vm->flag->v > 0 ? main_vz() : 0;
 	}
 	if (g_vm->num_car == 0)
 		finish();

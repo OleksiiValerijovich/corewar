@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_lfork.c                                         :+:      :+:    :+:   */
+/*   op_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okherson <okherson@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aturuk <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 10:37:47 by okherson          #+#    #+#             */
-/*   Updated: 2019/08/22 10:37:48 by okherson         ###   ########.fr       */
+/*   Created: 2019/08/22 10:55:54 by aturuk            #+#    #+#             */
+/*   Updated: 2019/08/22 10:55:55 by aturuk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/vm/corewar_vm.h"
+#include "../includes/vm/corewar_vm.h"
 
-void 			op_lfork(t_car *c)
+void		op_fork(t_car *c)
 {
 	int		arg[1];
 	t_car	*new;
-	int 	reg_num;
-	int     ll;
+	int		reg_num;
 
 	ft_bzero(arg, sizeof(int) * 1);
 	ft_bzero(g_vm->arg_type, sizeof(uint8_t) * 3);
-	arg[0] = (short)get_arg(c, DIR_CODE, (c->pos + 1) % MEM_SIZE, g_op[c->op_id].dir_size);
-	f_printf(c, 1, arg);
-//	ft_printf("HELLO");
-//	ft_printf("op_lfork    c->pos%d\n", (c->pos + arg[0]) % MEM_SIZE);
-	arg[0] = (c->pos + arg[0]) % MEM_SIZE;
+	arg[0] = (short)get_arg(c, DIR_CODE, c->pos + 1, g_op[c->op_id].dir_size);
+	g_vm->flag->i == 4 && g_vm->flag->v == 0 ? f_printf(c, 1, arg) : 0;
+	arg[0] = (arg[0] % IDX_MOD + c->pos) % MEM_SIZE;
 	reg_num = REG_NUMBER + 1;
 	new = (t_car *)ft_memalloc(sizeof(t_car));
 	new->next = g_vm->car;
@@ -34,8 +31,7 @@ void 			op_lfork(t_car *c)
 	new->num = ++g_vm->car_process;
 	new->bot_num = c->bot_num;
 	new->pos = arg[0];
-	ll = c->last_live;
-	new->last_live = ll;
+	new->last_live = c->last_live;
 	new->carry = c->carry;
 	while (--reg_num > 0)
 		new->reg[reg_num] = c->reg[reg_num];
