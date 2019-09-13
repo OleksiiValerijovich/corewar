@@ -12,23 +12,8 @@
 
 #include "../includes/vm/corewar_vm.h"
 
-static void	op_sti2(t_car *c, int *arg, int arg_size, int i)
+static void	op_sti3(t_car *c, int *arg, int arg_size, int pos)
 {
-	int		pos;
-
-	while (++i < 3)
-	{
-		if (g_vm->arg_type[i] == REG_CODE)
-			arg[i] = c->reg[arg[i]];
-		else if (g_vm->arg_type[i] == IND_CODE)
-		{
-			pos = arg[i];
-			arg[i] = 0;
-			while (arg_size > 0)
-				arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
-		}
-	}
-	pos = (c->pos + ((arg[1] + arg[2]) % IDX_MOD)) % MEM_SIZE;
 	if (g_vm->flag->i == 4 && g_vm->flag->v == 0)
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 	arg[1], arg[2], arg[1] + arg[2], c->pos + ((arg[1] + arg[2]) % IDX_MOD));
@@ -36,8 +21,30 @@ static void	op_sti2(t_car *c, int *arg, int arg_size, int i)
 	while (arg_size > 0)
 	{
 		g_vm->map_color[pos % MEM_SIZE] = c->bot_num;
-		g_vm->map[(pos++) % MEM_SIZE] = arg[0] >> (8 * --arg_size);
+		g_vm->map[(pos++) % MEM_SIZE] = c->reg[arg[0]] >> (8 * --arg_size);
 	}
+}
+
+static void	op_sti2(t_car *c, int *arg, int arg_size, int i)
+{
+	int		pos;
+
+	while (++i < 3)
+	{
+		if (g_vm->arg_type[i] == IND_CODE)
+		{
+			pos = arg[i];
+			arg[i] = 0;
+			while (arg_size > 0)
+				arg[i] += (g_vm->map[pos++ % MEM_SIZE] << (8 * --arg_size));
+		}
+	}
+	g_vm->flag->i == 4 && g_vm->flag->v == 0 ? f_printf(c, 3, arg) : 0;
+	i = 0;
+	while (++i < 3)
+		arg[i] = g_vm->arg_type[i] == REG_CODE ? c->reg[arg[i]] : arg[i];
+	pos = (c->pos + ((arg[1] + arg[2]) % IDX_MOD)) % MEM_SIZE;
+	op_sti3(c, arg, arg_size, pos);
 }
 
 void		op_sti(t_car *c)
@@ -57,9 +64,7 @@ void		op_sti(t_car *c)
 		(g_vm->arg_type[2] != REG_CODE || (g_vm->arg_type[2] == REG_CODE
 		&& arg[2] > 0 && arg[2] < 17))))
 		{
-			if (g_vm->flag->i == 4 && g_vm->flag->v == 0)
-				f_printf(c, 3, arg);
-			op_sti2(c, arg, arg_size, -1);
+			op_sti2(c, arg, arg_size, 0);
 		}
 	}
 	step_for_not_valid_arg_types(c, 3);

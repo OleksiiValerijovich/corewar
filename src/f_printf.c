@@ -12,6 +12,16 @@
 
 #include "../includes/vm/corewar_vm.h"
 
+void	f_printf2(t_car *c, int *arg)
+{
+	c->op_id == 12 ? ft_printf(" (%d)", (arg[0] % IDX_MOD + c->pos) % MEM_SIZE)
+	: 0;
+	c->op_id == 15 ? ft_printf(" (%d)", (arg[0] + c->pos)) : 0;
+	if (c->op_id == 9)
+		c->carry == 1 ? ft_printf(" OK") : ft_printf(" FAILED");
+	ft_printf("\n");
+}
+
 void	f_printf(t_car *c, int n_arg, int *arg)
 {
 	int i;
@@ -34,9 +44,5 @@ void	f_printf(t_car *c, int n_arg, int *arg)
 			ft_printf("%d", arg[i]);
 		i + 1 != n_arg ? ft_printf(" ") : 0;
 	}
-	c->op_id == 12 ? ft_printf(" (%d)", (arg[0] + c->pos)) : 0;
-	c->op_id == 15 ? ft_printf(" (%d)", (arg[0] + c->pos)) : 0;
-	if (c->op_id == 9)
-		c->carry == 1 ? ft_printf(" OK") : ft_printf(" FAILED");
-	ft_printf("\n");
+	f_printf2(c, arg);
 }

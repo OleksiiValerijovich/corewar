@@ -27,7 +27,6 @@ typedef struct		s_flag
 	int				n;
 	int				a;
 	int				dump;
-	int				p;
 	int				l;
 	int				m;
 	int				lld_size;
@@ -101,7 +100,7 @@ t_vm				*g_vm;
 
 void				error_exit(int i);
 void				validation_argv(int ac, char **av);
-void				check_flag_dump_p(char **av, int *i);
+void				check_flag_dump(char **av, int *i);
 void				check_flag_i_l(char **av, int *i);
 void				check_flags_v_a_lld_m(char **av, int *i);
 void				validation_bin_bot(void);

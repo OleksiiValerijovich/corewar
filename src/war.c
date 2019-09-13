@@ -74,11 +74,15 @@ static void	check(void)
 	if (g_vm->live_for_check >= NBR_LIVE)
 	{
 		g_vm->cycles_to_die = g_vm->cycles_to_die - CYCLE_DELTA;
+		g_vm->flag->i == 1 ?
+		ft_printf("Cycle to die is now %d\n", g_vm->cycles_to_die) : 0;
 		g_vm->check_count = 0;
 	}
 	else if (g_vm->check_count >= MAX_CHECKS)
 	{
 		g_vm->cycles_to_die = g_vm->cycles_to_die - CYCLE_DELTA;
+		g_vm->flag->i == 1 ?
+		ft_printf("Cycle to die is now %d\n", g_vm->cycles_to_die) : 0;
 		g_vm->check_count = 0;
 	}
 	g_vm->live_for_check = 0;

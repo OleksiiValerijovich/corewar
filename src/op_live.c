@@ -12,10 +12,6 @@
 
 #include "../includes/vm/corewar_vm.h"
 
-/*
-**	Original Corewar don't print that some player is alive.
-*/
-
 void		op_live(t_car *c)
 {
 	int		arg[1];
@@ -29,9 +25,12 @@ void		op_live(t_car *c)
 	if (arg[0] < 0 && arg[0] >= -g_vm->num_bot)
 	{
 		g_vm->last_say_live = -arg[0];
-		g_vm->flag->v == 0 ?
-		ft_printf("A process shows that player %d (%s) is alive\n",
-		g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name) : 0;
+		if (g_vm->flag->i == -1)
+		{
+			g_vm->flag->v == 0 ?
+			ft_printf("A process shows that player %d (%s) is alive\n",
+			g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name) : 0;
+		}
 	}
 	c->pos = (c->pos + 5) % MEM_SIZE;
 }

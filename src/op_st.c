@@ -12,7 +12,7 @@
 
 #include "../includes/vm/corewar_vm.h"
 
-void		op_st2(t_car *c, int *arg, int arg_size, int pos)
+static int	op_st2(t_car *c, int *arg, int arg_size, int pos)
 {
 	if (g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17)
 		c->reg[arg[1]] = c->reg[arg[0]];
@@ -31,6 +31,9 @@ void		op_st2(t_car *c, int *arg, int arg_size, int pos)
 			g_vm->map[(pos++) % MEM_SIZE] = c->reg[arg[0]] >> (8 * --arg_size);
 		}
 	}
+	else
+		return (1);
+	return (0);
 }
 
 void		op_st(t_car *c)
@@ -49,8 +52,8 @@ void		op_st(t_car *c)
 		get_all_arg(arg, 2, c);
 		if (arg[0] > 0 && arg[0] < 17)
 		{
-			op_st2(c, arg, arg_size, pos);
-			if (g_vm->flag->i == 4 && g_vm->flag->v == 0)
+			if (op_st2(c, arg, arg_size, pos) == 0 && g_vm->flag->i == 4
+			&& g_vm->flag->v == 0)
 				f_printf(c, 2, arg);
 		}
 	}

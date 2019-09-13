@@ -44,8 +44,7 @@ void		op_xor(t_car *c)
 	get_arg_type(c);
 	if (g_vm->arg_type[0] && g_vm->arg_type[1] && g_vm->arg_type[2] == REG_CODE)
 	{
-		if (g_vm->flag->i == 4)
-			get_all_arg(arg, 3, c);
+		get_all_arg(arg, 3, c);
 		if (((g_vm->arg_type[0] != REG_CODE || (g_vm->arg_type[0] == REG_CODE &&
 		(arg[0] > 0 && arg[0] < 17))) && (g_vm->arg_type[1] != REG_CODE ||
 		(g_vm->arg_type[1] == REG_CODE && arg[1] > 0 && arg[1] < 17))) &&

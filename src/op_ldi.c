@@ -36,7 +36,8 @@ static int	op_ldi2(t_car *c, int *arg)
 	pos = (c->pos + (arg[0] + arg[1]) % IDX_MOD) % MEM_SIZE;
 	g_vm->flag->i == 4 && g_vm->flag->v == 0 ?
 	ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-	arg[0], arg[1], arg[0] + arg[1], pos) : 0;
+	arg[0], arg[1], arg[0] + arg[1], (c->pos + (arg[0] + arg[1]) % IDX_MOD))
+	: 0;
 	return (pos);
 }
 
@@ -63,7 +64,7 @@ void		op_ldi(t_car *c)
 			c->reg[arg[2]] = 0;
 			while (arg_size > 0)
 				c->reg[arg[2]] += (g_vm->map[pos++ % MEM_SIZE]
-										<< (8 * --arg_size));
+				<< (8 * --arg_size));
 		}
 	}
 	step_for_not_valid_arg_types(c, 3);

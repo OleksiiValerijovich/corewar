@@ -73,9 +73,6 @@ static void	check_position(void)
 	if (g_vm->flag->v && (g_vm->flag->a || g_vm->flag->dump || g_vm->flag->m ||
 		g_vm->flag->l || g_vm->flag->i != -1))
 		error_exit(ft_printf(FLG_V_AND_OTHER, FLG_V_AND_OTHER2));
-	if (g_vm->flag->p && (!(g_vm->flag->v) || g_vm->flag->dump))
-		g_vm->flag->dump ? error_exit(ft_printf(FLG_DUMP_AND_P)) :
-		error_exit(ft_printf(FLG_V_AND_P));
 }
 
 void		validation_argv(int ac, char **av)
@@ -88,8 +85,8 @@ void		validation_argv(int ac, char **av)
 	i = 0;
 	while (++i < ac)
 	{
-		if (!(ft_strcmp(av[i], "-dump")) || !(ft_strcmp(av[i], "-p")))
-			check_flag_dump_p(av, &i);
+		if (!(ft_strcmp(av[i], "-dump")))
+			check_flag_dump(av, &i);
 		else if (!(ft_strcmp(av[i], "-i")) || !(ft_strcmp(av[i], "-l")))
 			check_flag_i_l(av, &i);
 		else if (!(ft_strcmp(av[i], "-v")) || !(ft_strcmp(av[i], "-a")) ||

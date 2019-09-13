@@ -12,13 +12,24 @@
 
 #include "../includes/vm/corewar_vm.h"
 
-/*
-**	Print as original - use this:
-**	ft_printf("Contestant %d, \"%s\", has won !\n",
-**	g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name);
-*/
+static void	ncurses_finish(void)
+{
+	int		key;
 
-void	finish(void)
+	key = 0;
+	system("afplay sound/champion.mp3&");
+	wattron(g_vm->vz->menu, COLOR_PAIR(9));
+	mvwprintw(g_vm->vz->menu, 2, 5, "Player %d (%s) won !",
+	g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name);
+	mvwprintw(g_vm->vz->menu, 40, 5, "PLEASE, PRESS ANY KEY TO QUIT ;-)");
+	wattroff(g_vm->vz->menu, COLOR_PAIR(9));
+	wrefresh(g_vm->vz->menu);
+	timeout(9999999999999);
+	key = getch();
+	key != 0 ? end_exit() : 0;
+}
+
+void		finish(void)
 {
 	if (g_vm->num_car <= 0)
 	{
@@ -27,15 +38,9 @@ void	finish(void)
 			ft_printf("Player %d (%s) won !\n",
 			g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name);
 			g_vm->flag->i == 2 ? print_map() : 0;
-//			printf("Cycle total %d\n", g_vm->cycles_total);
 		}
 		else
-		{
-			system("afplay sound/champion.mp3&");
-			mvwprintw(g_vm->vz->menu, 2, 5, "Player %d (%s) won !",
-			g_vm->last_say_live, g_vm->bot[g_vm->last_say_live - 1].name);
-			wrefresh(g_vm->vz->menu);
-		}
+			ncurses_finish();
 	}
 	else
 		g_vm->flag->v == 0 ? print_map() : 0;

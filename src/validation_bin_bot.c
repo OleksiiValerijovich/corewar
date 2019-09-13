@@ -51,7 +51,8 @@ void		validation_bin_bot(void)
 	while (++i < g_vm->num_bot)
 	{
 		read_bot(open(g_vm->bot[i].argv, O_RDONLY), i, a);
-		if (g_vm->bot[i].size_exec_code >=CHAMP_MAX_SIZE)
-			error_exit(ft_printf(TOO_LARGE_BOT_FILE));
+		if (g_vm->bot[i].size_exec_code > CHAMP_MAX_SIZE)
+			error_exit(ft_printf(TOO_LARGE_BOT_FILE, g_vm->bot[i].argv,
+			g_vm->bot[i].size_exec_code - CHAMP_MAX_SIZE));
 	}
 }

@@ -17,7 +17,6 @@ static void	introducing(void)
 	int		i;
 
 	i = -1;
-
 	ft_printf("Introducing contestants...\n");
 	while (++i < g_vm->num_bot)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
@@ -71,20 +70,39 @@ void		map_initialization(void)
 	g_vm->cycles_to_die = CYCLE_TO_DIE;
 }
 
-void	init_vz(void) //g_vm - global structure
+void		init_vz(void)
 {
 	g_vm->vz = (t_visualization *)ft_memalloc(sizeof(t_visualization));
 	initscr();
 	curs_set(0);
-	g_vm->vz->map=newwin(64, 196, 0, 0);
-	g_vm->vz->menu=newwin(64, 84, 0, 196);
+	g_vm->vz->map = newwin(64, 196, 0, 0);
+	g_vm->vz->menu = newwin(64, 84, 0, 196);
 	g_vm->vz->speed = 50;
-	init_color_pairs();//инициализация цветовых пар 1 - синий на черном, 5 - черный на
-	//синем(для каретки)
+	init_color_pairs();
 	mvwprintw(g_vm->vz->menu, 30, 5, "HOT KEYS : ");
-	mvwprintw(g_vm->vz->menu, 31, 5, "Press any key to run 1 cycle except following");
+	mvwprintw(g_vm->vz->menu, 31, 5,
+		"Press any key to run 1 cycle except following");
 	mvwprintw(g_vm->vz->menu, 32, 5, "Press '+' to make faster speed");
 	mvwprintw(g_vm->vz->menu, 33, 5, "Press '-' to make slowly speed");
 	mvwprintw(g_vm->vz->menu, 34, 5, "Press ESC to exit");
 	mvwprintw(g_vm->vz->menu, 35, 5, "Press SPACE to continue fight");
+}
+
+void		print_players(void)
+{
+	int		i;
+
+	i = -1;
+	mvwprintw(g_vm->vz->menu, 4, 5, "FIGHTING PLAYERS :");
+	while (++i < g_vm->num_bot)
+	{
+		wattron(g_vm->vz->menu, COLOR_PAIR(i + 1));
+		mvwprintw(g_vm->vz->menu, 5 + i * 3, 5, "* Player %d, \"%s\"",
+		g_vm->bot[i].num, g_vm->bot[i].name);
+		mvwprintw(g_vm->vz->menu, 5 + i * 3 + 1, 5, "        Comment : %s   ",
+		g_vm->bot[i].comment);
+		mvwprintw(g_vm->vz->menu, 5 + i * 3 + 2, 5, "        Size : %d  ",
+		g_vm->bot[i].size_exec_code);
+		wattroff(g_vm->vz->menu, COLOR_PAIR(i + 1));
+	}
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/vm/corewar_vm.h"
 
-void	check_flag_dump_p(char **av, int *i)
+void	check_flag_dump(char **av, int *i)
 {
 	IS_BOTS ? error_exit(ft_printf(FLG_PLACE)) : 0;
 	if (av[*i][1] == 'd')
@@ -23,15 +23,6 @@ void	check_flag_dump_p(char **av, int *i)
 		!(is_positive_int(av[*i + 1])) || av[*i + 1][0] == '0')
 			error_exit(ft_printf(FLG_DUMP_N));
 		g_vm->flag->dump = ft_atoi(av[*i += 1]);
-	}
-	if (av[*i][1] == 'p')
-	{
-		if (g_vm->flag->p)
-			error_exit(ft_printf(FLG_P_EXISTS));
-		if (!(av[*i + 1]) || av[*i + 1][0] == '-' ||
-		!(is_positive_int(av[*i + 1])) || av[*i + 1][0] == '0')
-			error_exit(ft_printf(FLG_P_N));
-		g_vm->flag->p = ft_atoi(av[*i += 1]);
 	}
 }
 

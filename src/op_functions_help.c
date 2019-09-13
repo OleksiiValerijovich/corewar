@@ -69,7 +69,7 @@ void	step_for_not_valid_arg_types(t_car *c, int arg_num)
 		if (g_vm->arg_type[arg_num] == IND_CODE)
 			step += 2;
 	}
-	c->pos = (c->pos + step + 2) % MEM_SIZE;
+	c->pos = (c->pos + step + g_op[c->op_id].is_args_types + 1) % MEM_SIZE;
 }
 
 void	get_all_arg(int *arg, int num_arg, t_car *c)

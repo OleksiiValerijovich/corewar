@@ -18,17 +18,18 @@ void		op_aff(t_car *c)
 
 	ft_bzero(arg, sizeof(int) * 1);
 	ft_bzero(g_vm->arg_type, sizeof(uint8_t) * 3);
-	arg[0] = get_arg(c, REG_CODE, c->pos + 1, 0);
-	if (arg[0] > 0 && arg[0] < 17)
+	get_arg_type(c);
+	if (g_vm->arg_type[0] == REG_CODE)
 	{
-		c->pos = (c->pos + 2) % MEM_SIZE;
-		if (g_vm->flag->a && g_vm->flag->v == 0)
+		arg[0] = get_arg(c, REG_CODE, (c->pos + 2) % MEM_SIZE, 0);
+		if (arg[0] > 0 && arg[0] < 17)
 		{
-			f_printf(c, 1, arg);
-			ft_printf("Aff: %d  %C\n", (c->reg[arg[0]] % 256),
-			(c->reg[arg[0]] % 256));
+			if (g_vm->flag->a && g_vm->flag->v == 0)
+			{
+				f_printf(c, 1, arg);
+				ft_printf("Aff: %c\n", (c->reg[arg[0]] % 256));
+			}
 		}
 	}
-	else
-		c->pos = (c->pos + 4) % MEM_SIZE;
+	step_for_not_valid_arg_types(c, 1);
 }

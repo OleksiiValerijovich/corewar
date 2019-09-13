@@ -30,7 +30,7 @@ static void	print_usage2(void)
 
 static void	print_usage(void)
 {
-	ft_printf("Usage: ./corewar [-dump <nbr_cycles> -p <nbr_cycles> -i <nbr>" \
+	ft_printf("Usage: ./corewar [-dump <nbr_cycles> -i <nbr>" \
 	", | -a | -lld_size |\n       -m | -l |-v ] <champion1.cor> [ -n <nbr> ]" \
 	" <champion2.cor> <...>\n");
 	ft_printf("###################################################" \
@@ -44,8 +44,6 @@ static void	print_usage(void)
 		"##########################################################\n");
 	ft_printf("  %s% 2c %s\n", "-dump <nbr_cycles>", ':',
 		"Dumps memory after nbr_cycles, then exits");
-	ft_printf("  %s% 5c %s\n", "-p <nbr_cycles>", ':',
-		"Runs nbr_cycles, dumps memory, pauses, then repeats??????");
 	ft_printf("  %s% 18c %s\n", "-m", ':', "Print map with 64 octets " \
 		"per line (as original)");
 	ft_printf("  %s% 18c %s\n", "-l", ':', "Show leaks");
@@ -68,11 +66,9 @@ int			main(int argc, char **argv)
 	validation_argv(argc, argv);
 	validation_bin_bot();
 	map_initialization();
-	init_vz();
+	if (g_vm->flag->v != 0)
+		init_vz();
 	war();
-	system("clear");
-
-	endwin(); // завершение работы с ncurses
 	g_vm->flag->l ? system("leaks -q corewar") : 0;
 	return (0);
 }

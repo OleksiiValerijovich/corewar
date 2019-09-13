@@ -24,8 +24,8 @@ void		op_add(t_car *c)
 		arg[0] = get_arg(c, REG_CODE, c->pos + 2, 0);
 		arg[1] = get_arg(c, REG_CODE, c->pos + 3, 0);
 		arg[2] = get_arg(c, REG_CODE, c->pos + 4, 0);
-		if (arg[0] > 1 && arg[0] < 17 && arg[1] > 1 && arg[1] < 17 &&
-		arg[2] > 1 && arg[2] < 17)
+		if (arg[0] > 0 && arg[0] < 17 && arg[1] > 0 && arg[1] < 17 &&
+		arg[2] > 0 && arg[2] < 17)
 		{
 			g_vm->flag->i == 4 && g_vm->flag->v == 0 ? f_printf(c, 3, arg) : 0;
 			c->reg[arg[2]] = c->reg[arg[0]] + c->reg[arg[1]];
