@@ -30,7 +30,7 @@ SRC_F	=	main.c \
 			help_vz.c
 
 
-SRC = $(addprefix ./src/, $(SRC_F))
+SRC = 		$(addprefix ./src/, $(SRC_F))
 
 OBJ_F 	=	main.o \
 			validation_argv1.o \
@@ -63,7 +63,7 @@ OBJ_F 	=	main.o \
 
 OBJ_DIR =	./obj/
 
-OBJ = $(addprefix ./obj/, $(OBJ_F))
+OBJ = 		$(addprefix ./obj/, $(OBJ_F))
 
 LIB_DIR = 	./libft
 
@@ -72,33 +72,39 @@ HEADER = 	./includes/vm/corewar_vm.h\
 			./includes/vm/corewar_vz.h\
 			./includes/vm/corewar_error.h
 
-ASM_DIR = ./src_asm
+ASM_DIR = 	./assembler
 
-FLAGS = -Wall -Wextra -Werror -g -O3
+FLAGS = 	-Wall -Wextra -Werror -g -O3
 
-all: $(NAME)
+all: 		assembler $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ) $(HEADER)
-#	@make -C $(LIB_DIR)
-#	make -C $(ASM_DIR)
-	@gcc $(OBJ) -o $(NAME) $(FLAGS) -L $(LIB_DIR) -lft -lncurses
+assembler:
+			@make -C $(ASM_DIR)
+
+$(NAME): 	$(OBJ_DIR) $(OBJ) $(HEADER)
+#			@make -C $(LIB_DIR)
+			@gcc $(OBJ) -o $(NAME) $(FLAGS) -L $(LIB_DIR) -lft -lncurses
 
 $(OBJ_DIR):
-		@mkdir -p $(OBJ_DIR)
+			@mkdir -p $(OBJ_DIR)
 
 $(addprefix ./obj/, %.o): $(addprefix ./src/, %.c) $(HEADER)
-		@gcc -o $@ -c $< $(FLAGS)
+			@gcc -o $@ -c $< $(FLAGS)
 
 #lib:
-#	@make -C $(LIB_DIR) re
+#			@make -C $(LIB_DIR) re
 
 clean:
-#	@make -C $(LIB_DIR) clean
-	@rm -f $(OBJ)
-	@rm -rf $(OBJ_DIR)
+#			@make -C $(LIB_DIR) clean
+			@make -C $(ASM_DIR) clean
+			@rm -f $(OBJ)
+			@rm -rf $(OBJ_DIR)
 
-fclean: clean
-#	@make -C $(LIB_DIR) fclean
-	@rm -f $(NAME)
+fclean: 	clean
+#			@make -C $(LIB_DIR) fclean
+			@make -C $(ASM_DIR) fclean
+			@rm -f $(NAME)
 
-re: fclean all
+re: 		fclean all
+
+.PHONY: 	all libft clean fclean re assembler
